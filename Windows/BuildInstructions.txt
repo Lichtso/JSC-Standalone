@@ -1,0 +1,39 @@
+#Guides:
+http://www.webkit.org/building/build.html
+http://www.webkit.org/building/tools.html
+http://trac.webkit.org/wiki/BuildingOnWindows
+
+#Install Dependencies:
+Download icu4c-4_6_1-Win32-msvc10.zip and icu4c-4_6_1-Win64-msvc10.zip from http://site.icu-project.org/download/46#ICU4C-Download
+Rename icuin.lib to libicuin.lib
+Rename icuuc.lib to libicuuc.lib
+OR
+Extract files from WebKitAuxiliaryLibrary.zip to WebKitLibraries/win/
+
+Remove Line 129 from Source/WTF/WTF.vcxproj/WTF.vcxproj : <ClCompile Include="..\wtf\text\cf\AtomicStringCF.cpp" />
+Remove Line 130 from Source/WTF/WTF.vcxproj/WTF.vcxproj : <ClCompile Include="..\wtf\text\cf\StringCF.cpp" />
+Remove Line 131 from Source/WTF/WTF.vcxproj/WTF.vcxproj : <ClCompile Include="..\wtf\text\cf\StringImplCF.cpp" />
+Remove Line 132 from Source/WTF/WTF.vcxproj/WTF.vcxproj : <ClCompile Include="..\wtf\text\cf\StringViewCF.cpp" />
+Remove Line 143 from Source/WTF/WTF.vcxproj/WTF.vcxproj : <ClCompile Include="..\wtf\SchedulePairCF.cpp" />
+Remove Line 301 from Source/JavaScriptCore/JavaScriptCore.vcxproj/JavaScriptCore.vcxproj : <ClCompile Include="..\API\JSStringRefCF.cpp" />
+Remove Line 6 from Source/WTF/WTF.vcxproj/WTFCommon.props : zdll$(DebugSuffix).lib;
+Remove Line 7 from Source/WTF/WTF.vcxproj/WTFCoreFoundation.props : CoreFoundation$(DebugSuffix).lib;
+Remove Line 8 from Source/JavaScriptCore/JavaScriptCore.vcxproj/JavaScriptCoreCF.props : CoreFoundation$(DebugSuffix).lib;
+Remove Line 520 from Source/WTF/wtf/Platform.h : #define WTF_USE_CF 1
+
+#OPTIONAL when using ICU > 4.6
+Remove Line  Source/WTF/WTF.vcxproj/build-generated-files.sh : echo "#define U_DISABLE_RENAMING $?" > "${ICUVERSION_H_PATH}"
+
+#OPTIONAL for better linking
+Add Line 691 to Source/WTF/WTF.vcxproj/WTF.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+Add Line 706 to Source/WTF/WTF.vcxproj/WTF.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+Add Line 245 to Source/JavaScriptCore/JavaScriptCore.vcxproj/JavaScriptCore.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+Add Line 254 to Source/JavaScriptCore/JavaScriptCore.vcxproj/JavaScriptCore.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+Add Line 263 to Source/JavaScriptCore/JavaScriptCore.vcxproj/jsc/jsc.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+Add Line 273 to Source/JavaScriptCore/JavaScriptCore.vcxproj/jsc/jsc.vcxproj : <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+
+#Compile
+export TEMP=
+export TMP=
+Tools/Scripts/build-jsc --release --64-bit
+#/cygdrive/c/Program Files (x86)/Microsoft Visual Studio 12.0/Common7/IDE/WDExpress.exe Source/JavaScriptCore/JavaScriptCore.vcxproj/JavaScriptCore.sln

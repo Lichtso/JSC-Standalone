@@ -1,0 +1,11 @@
+export ARCHS=i386
+OR
+export ARCHS=x86_64
+
+cd Source/WTF
+make release
+cd ../JavaScriptCore/
+make release
+
+cd ../../
+install_name_tool -change /System/Library/Frameworks/JavaScriptCore.framework/Versions/A/JavaScriptCore @executable_path/JavaScriptCore.framework/Versions/A/JavaScriptCore WebKitBuild/Release/jsc
