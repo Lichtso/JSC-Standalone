@@ -1,0 +1,31 @@
+Install: llvm-3.4 clang-3.4 libcxx libcxxabi
+
+Delete lines 451 and 453 to 456 from 451 in Source/WTF/wtf/Platform.h:
+#define WTF_USE_CAIRO 1
+#define WTF_USE_FREETYPE 1
+#define WTF_USE_HARFBUZZ 1
+#define WTF_USE_SOUP 1
+#define WTF_USE_WEBP 1
+
+Delete all lines of find_package() in Source/cmake/OptionsGTK.cmake that you do not have/need
+Change line 193 in Source/cmake/OptionsGTK.cmake: find_package(GTK3 3.4.0 REQUIRED)
+Change line 194 in Source/cmake/OptionsGTK.cmake: find_package(GDK3 3.4.0 REQUIRED)
+Change line 212 in Source/cmake/OptionsGTK.cmake to: find_package(GLIB 2.32.4 REQUIRED COMPONENTS ${glib_components})
+
+Set the following lines in CMakeCache.txt:
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++
+CMAKE_CXX_FLAGS:STRING=-stdlib=libc++
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/clang
+CMAKE_SHARED_LINKER_FLAGS:STRING=-lc++abi
+
+Run: make jsc
+Set in CMakeCache.txt: PORT:STRING=GTK
+
+Run again: make jsc
+Set all video/audio related options (GStreamer) in CMakeCache.txt to: =OFF
+
+Run again: make jsc
+Delete all lines in CMakeCache.txt that end with: =NOTFOUND
+
+Finally run: make -j8 jsc
+chrpath -r ./ bin/jsc
