@@ -47,7 +47,7 @@ extern "C" {
  synchronization is required.
 @result The created JSContextGroup.
 */
-JS_EXPORT JSContextGroupRef JSContextGroupCreate() CF_AVAILABLE(10_6, 7_0);
+JS_EXPORT JSContextGroupRef JSContextGroupCreate();
 
 /*!
 @function
@@ -55,14 +55,14 @@ JS_EXPORT JSContextGroupRef JSContextGroupCreate() CF_AVAILABLE(10_6, 7_0);
 @param group The JSContextGroup to retain.
 @result A JSContextGroup that is the same as group.
 */
-JS_EXPORT JSContextGroupRef JSContextGroupRetain(JSContextGroupRef group) CF_AVAILABLE(10_6, 7_0);
+JS_EXPORT JSContextGroupRef JSContextGroupRetain(JSContextGroupRef group);
 
 /*!
 @function
 @abstract Releases a JavaScript context group.
 @param group The JSContextGroup to release.
 */
-JS_EXPORT void JSContextGroupRelease(JSContextGroupRef group) CF_AVAILABLE(10_6, 7_0);
+JS_EXPORT void JSContextGroupRelease(JSContextGroupRef group);
 
 /*!
 @function
@@ -77,7 +77,7 @@ JS_EXPORT void JSContextGroupRelease(JSContextGroupRef group) CF_AVAILABLE(10_6,
  NULL to use the default object class.
 @result A JSGlobalContext with a global object of class globalObjectClass.
 */
-JS_EXPORT JSGlobalContextRef JSGlobalContextCreate(JSClassRef globalObjectClass) CF_AVAILABLE(10_5, 7_0);
+JS_EXPORT JSGlobalContextRef JSGlobalContextCreate(JSClassRef globalObjectClass);
 
 /*!
 @function
@@ -91,7 +91,7 @@ JS_EXPORT JSGlobalContextRef JSGlobalContextCreate(JSClassRef globalObjectClass)
 @result A JSGlobalContext with a global object of class globalObjectClass and a context
  group equal to group.
 */
-JS_EXPORT JSGlobalContextRef JSGlobalContextCreateInGroup(JSContextGroupRef group, JSClassRef globalObjectClass) CF_AVAILABLE(10_6, 7_0);
+JS_EXPORT JSGlobalContextRef JSGlobalContextCreateInGroup(JSContextGroupRef group, JSClassRef globalObjectClass);
 
 /*!
 @function
@@ -122,7 +122,7 @@ JS_EXPORT JSObjectRef JSContextGetGlobalObject(JSContextRef ctx);
 @param ctx The JSContext whose group you want to get.
 @result ctx's group.
 */
-JS_EXPORT JSContextGroupRef JSContextGetGroup(JSContextRef ctx) CF_AVAILABLE(10_6, 7_0);
+JS_EXPORT JSContextGroupRef JSContextGetGroup(JSContextRef ctx);
 
 /*!
 @function
@@ -130,7 +130,7 @@ JS_EXPORT JSContextGroupRef JSContextGetGroup(JSContextRef ctx) CF_AVAILABLE(10_
 @param ctx The JSContext whose global context you want to get.
 @result ctx's global context.
 */
-JS_EXPORT JSGlobalContextRef JSContextGetGlobalContext(JSContextRef ctx) CF_AVAILABLE(10_7, 7_0);
+JS_EXPORT JSGlobalContextRef JSContextGetGlobalContext(JSContextRef ctx);
 
 /*!
 @function
@@ -140,7 +140,7 @@ JS_EXPORT JSGlobalContextRef JSContextGetGlobalContext(JSContextRef ctx) CF_AVAI
 @discussion A JSGlobalContext's name is exposed for remote debugging to make it
 easier to identify the context you would like to attach to.
 */
-JS_EXPORT JSStringRef JSGlobalContextCopyName(JSGlobalContextRef ctx) CF_AVAILABLE(10_10, 8_0);
+JS_EXPORT JSStringRef JSGlobalContextCopyName(JSGlobalContextRef ctx);
 
 /*!
 @function
@@ -148,7 +148,7 @@ JS_EXPORT JSStringRef JSGlobalContextCopyName(JSGlobalContextRef ctx) CF_AVAILAB
 @param ctx The JSGlobalContext that you want to name.
 @param name The remote debugging name to set on ctx.
 */
-JS_EXPORT void JSGlobalContextSetName(JSGlobalContextRef ctx, JSStringRef name) CF_AVAILABLE(10_10, 8_0);
+JS_EXPORT void JSGlobalContextSetName(JSGlobalContextRef ctx, JSStringRef name);
 
 #ifdef __cplusplus
 }
