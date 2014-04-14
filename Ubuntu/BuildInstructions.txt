@@ -1,31 +1,46 @@
-Install: llvm-3.4 clang-3.4 libcxx libcxxabi
+1. Install: llvm-3.4 clang-3.4 libcxx libcxxabi
 
-Delete lines 451 and 453 to 456 from 451 in Source/WTF/wtf/Platform.h:
+2. Delete lines 451 and 453 to 456 from 451 in Source/WTF/wtf/Platform.h:
 #define WTF_USE_CAIRO 1
 #define WTF_USE_FREETYPE 1
 #define WTF_USE_HARFBUZZ 1
 #define WTF_USE_SOUP 1
 #define WTF_USE_WEBP 1
 
-Delete all lines of find_package() in Source/cmake/OptionsGTK.cmake that you do not have/need
+3. Delete all lines of find_package() in Source/cmake/OptionsGTK.cmake that you do not have/need
 Change line 193 in Source/cmake/OptionsGTK.cmake: find_package(GTK3 3.4.0 REQUIRED)
 Change line 194 in Source/cmake/OptionsGTK.cmake: find_package(GDK3 3.4.0 REQUIRED)
 Change line 212 in Source/cmake/OptionsGTK.cmake to: find_package(GLIB 2.32.4 REQUIRED COMPONENTS ${glib_components})
 
-Set the following lines in CMakeCache.txt:
-CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++
-CMAKE_CXX_FLAGS:STRING=-stdlib=libc++
-CMAKE_C_COMPILER:FILEPATH=/usr/bin/clang
-CMAKE_SHARED_LINKER_FLAGS:STRING=-lc++abi
+4. Run: cmake CMakeLists.txt
 
-Run: make jsc
-Set in CMakeCache.txt: PORT:STRING=GTK
+5. Set the following line in CMakeCache.txt: PORT:STRING=GTK
 
-Run again: make jsc
-Set all video/audio related options (GStreamer) in CMakeCache.txt to: =OFF
+6. Repeat step 4
 
-Run again: make jsc
+7. Set all video/audio related options (GStreamer) in CMakeCache.txt to: =OFF
+ENABLE_VIDEO:BOOL=OFF
+ENABLE_VIDEO_TRACK:BOOL=OFF
+ENABLE_WEB_AUDIO:BOOL=OFF
+ENABLE_LEGACY_WEB_AUDIO:BOOL=OFF
 Delete all lines in CMakeCache.txt that end with: =NOTFOUND
 
-Finally run: make -j8 jsc
-chrpath -r ./ bin/jsc
+8. Repeat step 4
+
+9. Set the following lines in CMakeCache.txt:
+CMAKE_CXX_COMPILER:FILEPATH=/usr/bin/clang++
+CMAKE_C_COMPILER:FILEPATH=/usr/bin/clang
+
+10. Run: make jsc
+
+11. Repeat step 5
+
+12. Set the following lines in CMakeCache.txt:
+CMAKE_CXX_FLAGS:STRING=-stdlib=libc++
+CMAKE_SHARED_LINKER_FLAGS:STRING=-lc++abi
+
+13. Repeat step 4 and 7
+
+14. Finally run: make -j8 jsc
+
+15. Optional run: chrpath -r ./ bin/jsc
