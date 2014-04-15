@@ -1,0 +1,4 @@
+svn co --depth empty https://svn.webkit.org/repository/webkit/trunk WebKit
+cd WebKit
+svn up Makefile Makefile.shared CMakeLists.txt
+svn up Tools Source WebKitLibraries
